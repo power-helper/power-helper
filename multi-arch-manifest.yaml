@@ -1,0 +1,16 @@
+image: wx5223/xuexi:v20210703
+manifests:
+  - image: wx5223/xuexi:v20210703-amd64
+    platform:
+      architecture: amd64
+      os: linux
+  - image: wx5223/xuexi:v20210703-arm32v7
+    platform:
+      architecture: arm
+      os: linux
+      variant: v7
+  - image: wx5223/xuexi:v20210703-arm64v8
+    platform:
+      architecture: arm64
+      os: linux
+      variant: v8

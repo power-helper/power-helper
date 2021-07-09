@@ -26,7 +26,7 @@ from selenium.common import exceptions
 class title_of_login:
     def __call__(self, driver):
         """ 用来结合webDriverWait判断出现的title """
-        is_title1 = bool(EC.title_is(u'我的学 xi ')(driver))
+        is_title1 = bool(EC.title_is(u'我的学习')(driver))
         is_title2 = bool(EC.title_is(u'系统维护中')(driver))
         if is_title1 or is_title2:
             return True
@@ -77,6 +77,8 @@ class Mydriver:
             elif os.path.exists("/usr/local/bin/chromedriver"):  # linux 包安装chromedriver
                 self.driver = self.webdriver.Chrome(executable_path="/usr/local/bin/chromedriver",
                                                     chrome_options=self.options)
+            elif os.path.exists("/usr/bin/chromedriver"):  # installed chromedriver
+                self.driver = self.webdriver.Chrome(executable_path="/usr/bin/chromedriver", chrome_options=self.options)
             else:
                 self.driver = self.webdriver.Chrome(executable_path="./chrome/chromedriver.exe",chrome_options=self.options)
         except:
@@ -122,7 +124,7 @@ class Mydriver:
 
 
         try:
-            # WebDriverWait(self.driver, 270).until(EC.title_is(u"我的学 xi "))
+            # WebDriverWait(self.driver, 270).until(EC.title_is(u"我的学习"))
             WebDriverWait(self.driver, 270).until(title_of_login())
             cookies = self.get_cookies()
 

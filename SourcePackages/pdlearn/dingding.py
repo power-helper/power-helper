@@ -40,16 +40,16 @@ class DingDingHandler:
 
     def ddimgsend(self, img_data, retry=0):
         # data:image/png;base64,iVBORw0KGgoA...
-        self.ddlinksend(img_data, title=f"学 xi 吧{'-重试：'+str(retry) if retry>0 else ''}")
+        self.ddlinksend(img_data, title=f"学习吧{'-重试：'+str(retry) if retry>0 else ''}")
         self.ddtextsend(decode_img(img_data))
 
-    def ddlinksend(self, link, text='学 xi 强 guo ', title='学 xi 吧'):
+    def ddlinksend(self, link, text='学习强国', title='学习吧'):
         headers = {"Content-Type": "application/json"}  # 定义数据类型
         data = {
             "msgtype": "link",
             "link": {
                 "text": text,
-                "title": title,  #f"学 xi 吧{'-重试：' + str(retry) if retry > 0 else ''}",
+                "title": title,  #f"学习吧{'-重试：' + str(retry) if retry > 0 else ''}",
                 "messageUrl": link,
             },
         }

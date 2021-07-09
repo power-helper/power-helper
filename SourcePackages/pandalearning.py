@@ -24,17 +24,23 @@ def get_argv():
     return token, secret
 
 
-@timeout(1800, 'timeout')
+@timeout(1200, 'timeout')
 def answer_question(cookies, scores):
-    TechXueXi_mode = "3"
-    if TechXueXi_mode in ["2", "3"]:
-        print('开始每日答题……')
+    print('开始每日答题……')
+    try:
         daily(cookies, scores)
-    if TechXueXi_mode in ["3"]:
-        print('开始每周答题……')
+    except Exception as e:
+        print(color.red("每日答题异常：" + str(e)))
+    print('开始每周答题……')
+    try:
         weekly(cookies, scores)
-        print('开始专项答题……')
+    except Exception as e:
+        print(color.red("每周答题异常：" + str(e)))
+    print('开始专项答题……')
+    try:
         zhuanxiang(cookies, scores)
+    except Exception as e:
+        print(color.red("专项答题异常：" + str(e)))
 
 
 if __name__ == '__main__':
@@ -46,10 +52,10 @@ if __name__ == '__main__':
     start_time = time.time()
     if(cfg['display']['banner'] != "false"): # banner文本直接硬编码，不要放在ini中
         print("=" * 60 + \
-        '\n    科技强 guo 官方网站：https://techxuexi.js.org' + \
+        '\n    科技强国官方网站：https://techxuexi.js.org' + \
         '\n    Github地址：https://github.com/TechXueXi' + \
         '\n使用本项目，必须接受以下内容，否则请立即退出：' + \
-        '\n    - TechXueXi 仅额外提供给“爱党爱 guo ”且“工作学业繁重”的人' + \
+        '\n    - TechXueXi 仅额外提供给“爱党爱国”且“工作学业繁重”的人' + \
         '\n    - 项目开源协议 LGPL-3.0' + \
         '\n    - 不得利用本项目盈利' + \
         '\n另外，我们建议你参与一个维护劳动法的项目：' + \
@@ -87,8 +93,8 @@ if __name__ == '__main__':
     total, scores = show_score(cookies)
 
     lock = False
-    article_thread = threads.MyMainThread("文章学 xi ", article, uid, cookies, article_index, scores, lock=lock)
-    video_thread = threads.MyMainThread("视频学 xi ", video, uid, cookies, video_index, scores, lock=lock)
+    article_thread = threads.MyMainThread("文章学习", article, uid, cookies, article_index, scores, lock=lock)
+    video_thread = threads.MyMainThread("视频学习", video, uid, cookies, video_index, scores, lock=lock)
     article_thread.start()
     video_thread.start()
     article_thread.join()
